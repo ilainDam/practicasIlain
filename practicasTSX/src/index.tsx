@@ -15,13 +15,14 @@ import Practica14 from './practicasClase/Practica14/Practica14';
 import Practica15 from './practicasClase/Practica15/Practica15';
 import Practica16 from './practicasClase/Practica16/Practica16';
 import Practica23 from './practicasClase/Practica23/Practica23';
+import TablaClicks from './Extra/TablaCliks/TablaClicks';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Practica23 />
+    <TablaClicks />
   </React.StrictMode>
 );
 
