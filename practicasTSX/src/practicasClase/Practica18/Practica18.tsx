@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 type Props = {}
-const EjemploApiLentaUseEffect = (props: Props) => {
+const Practica18 = (props: Props) => {
     const [datosApi, setDatosApi] = useState(-1);
     async function obtenerDatosApi() {
         //emulamos llamada a API lenta. Cuando pasen 3 segundos cambiamos el state de datosApi
@@ -13,7 +13,7 @@ const EjemploApiLentaUseEffect = (props: Props) => {
             3000 // aquí el tiempo a esperar para lanzar la función
         );
     }
-    //useEffect(() => {
+    // useEffect(() => {
     obtenerDatosApi();
     //}, [])
     return (
@@ -24,4 +24,4 @@ const EjemploApiLentaUseEffect = (props: Props) => {
         </div>
     )
 }
-export default EjemploApiLentaUseEffect
+export default Practica18
