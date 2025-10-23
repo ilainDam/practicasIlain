@@ -22,7 +22,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <TablaClicks />
+    <Practica23 />
   </React.StrictMode>
 );
 

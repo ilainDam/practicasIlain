@@ -6,11 +6,9 @@ type Props = {}
 const Practica23 = (props: Props) => {
   const [tick, setTick] = useState(0); 
 
-  useEffect(() => {
-    const interval = setInterval(() => {
+    setInterval(() => {
       setTick(tick + 1);
     }, 1000);
-  }, [tick]);
 
   return (
     <>
