@@ -33,7 +33,7 @@ type GeneradorDeAleatoriosProps = {
 }
 
 function GeneradorDeAleatorios(props: GeneradorDeAleatoriosProps) {
-  let aleatorio=Math.trunc((Math.random()*(props.maximo-props.minimo))+props.minimo);
+  let aleatorio = Math.trunc((Math.random() * (props.maximo - props.minimo)) + props.minimo);
   return (
     <div data-testid="generador-hijo">
       <br></br>
@@ -42,8 +42,8 @@ function GeneradorDeAleatorios(props: GeneradorDeAleatoriosProps) {
       <p data-testid="limiteInferior">{props.minimo}</p>
       <p>Maximo</p>
       <p data-testid="limiteSuperior">{props.maximo}</p>
-      <button onClick={()=>
-props.setAleatorio(aleatorio)}>Generar Aleatorio</button>
+      <button onClick={() =>
+        props.setAleatorio(aleatorio)}>Generar Aleatorio</button>
       <p>Aleatorio</p>
       <p>{aleatorio}</p>
     </div>
