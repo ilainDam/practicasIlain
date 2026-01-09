@@ -24,6 +24,7 @@ const TablaClicks = (props: Props) => {
 
             </>
         )
+
     }
 
     return (
