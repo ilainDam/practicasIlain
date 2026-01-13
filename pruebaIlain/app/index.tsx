@@ -25,12 +25,13 @@ interface Images {
 //
 const index = (props: Props) => {
     //
-    let url;
+    let urlDetras="https://deckofcardsapi.com/static/img/back.png";
+    let url="https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
     const [deckId, setDeckId] = useState("")
     const [misCartas, setMisCartas] = useState<Card[]>([])
     //
     async function iniciarID() {
-        let respuesta = await axios.get("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
+        let respuesta = await axios.get(url)
         setDeckId(respuesta.data.deck_id as string)
         return respuesta.data.deck_id;
     }
