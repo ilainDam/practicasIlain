@@ -31,8 +31,7 @@ const index = (props: Props) => {
     const [misCartas, setMisCartas] = useState<Card[]>([])
     const [cartasBanco, setCartasBanco] = useState<Card[]>([])
     const [reseteo, setReseteo] = useState<number>(0)
-    const [conteoJugador, setConteoJugador] = useState<number>(0)
-    const [conteoBanco, setConteoBanco] = useState<number>(0)
+    const [terminar, setTerminar] = useState<boolean>(false)
     //
     async function iniciarID() {
         let respuesta = await axios.get(url)
@@ -75,8 +74,27 @@ const index = (props: Props) => {
         }
         return total;
     }
-
-
+    async function turnoDealer() {
+        let bancoActual = [...cartasBanco];
+        while (true) {
+            const total = calcularConteo(bancoActual);
+            if (total < 17) {
+                const nuevas = await sacarCartas(deckId, 1);
+                bancoActual = [...bancoActual, ...nuevas];
+                continue;
+            }
+            if (total === 17) {
+                if (Math.random() < 0.33) {
+                    const nuevas = await sacarCartas(deckId, 1);
+                    bancoActual = [...bancoActual, ...nuevas];
+                }
+                break;
+            }
+            break;
+        }
+        setCartasBanco(bancoActual);
+        return bancoActual;
+    }
     //
     useEffect(() => {
         let mico = async () => {
@@ -96,25 +114,46 @@ const index = (props: Props) => {
                 <Text>
                     Player Total: {calcularConteo(misCartas)}
                 </Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '60%', marginTop: 10 }}>
-                    <Button title='Sacar carta' onPress={async () => {
-                        const nuevasCartas = await sacarCartas(deckId, 1);
-                        añadirJugador(nuevasCartas);
-                        const manoActual = [...misCartas, ...nuevasCartas];
-                        const puntuacionActual = calcularConteo(manoActual);
-                        if (puntuacionActual > 21) {
-                            Alert.alert("Te has pasado de 21, has perdido");
-                            reiniciarJuego();
-                        }
-                    }} />
-                    <Button title='Plantarse' onPress={async () => {
-                        calcularConteo(misCartas) > calcularConteo(cartasBanco) ? Alert.alert("Has ganado") : Alert.alert("Ha ganado el banco")
-                        setTimeout(() => {
-                            reiniciarJuego()
-                        }, 2000);
+                {
+                    !terminar ?
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '60%', marginTop: 10 }}>
+                            <Button title='Sacar carta' onPress={async () => {
+                                const nuevasCartas = await sacarCartas(deckId, 1);
+                                añadirJugador(nuevasCartas);
+                                const manoActual = [...misCartas, ...nuevasCartas];
+                                const puntuacionActual = calcularConteo(manoActual);
+                                if (puntuacionActual > 21) {
+                                    Alert.alert("Te has pasado de 21, has perdido");
+                                    setTerminar(true)
+                                }
+                            }} />
+                            <Button
+                                title='Plantarse'
+                                onPress={async () => {
+                                    const bancoFinal = await turnoDealer();
 
-                    }} />
-                </View>
+                                    const totalJugador = calcularConteo(misCartas);
+                                    const totalBanco = calcularConteo(bancoFinal);
+
+                                    if (totalBanco > 21) {
+                                        Alert.alert("Has ganado el banco se paso");
+                                    } else if (totalJugador > totalBanco) {
+                                        Alert.alert("Has ganado");
+                                    } else if (totalJugador === totalBanco) {
+                                        Alert.alert("Empate");
+                                    } else {
+                                        Alert.alert("Has perdido");
+                                    }
+
+                                    setTerminar(true);
+                                }}
+                            />
+                        </View>
+                        :
+                        <View>
+                            <Button title='Reiniciar partida' onPress={() => { reiniciarJuego(); setTerminar(false) }} />
+                        </View>
+                }
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginTop: 10 }}>
                     {misCartas.map((item, index) => (
                         <Image key={index} source={{ uri: item.image }} style={{ height: 140, width: 100, margin: 2 }} />
@@ -122,14 +161,28 @@ const index = (props: Props) => {
                 </View>
             </View>
             <View style={{ backgroundColor: "lightblue", flex: 1, alignItems: "center", padding: 10 }}>
-                <Text>
-                    Bank Total: {calcularConteo(cartasBanco)}
-                </Text>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
-                    {cartasBanco.map((item, index) => (
-                        <Image key={index} source={{ uri: index == 0 ? urlDetras : item.image }} style={{ height: 140, width: 100, margin: 2 }} />
-                    ))}
-                </View>
+                {
+                    !terminar ?
+                        <Text>
+                            Bank Total: {cartasBanco.length == 0 ? 0: calcularConteo([cartasBanco[1]])}
+                        </Text> :
+                        <Text>
+                            Bank Total: {calcularConteo(cartasBanco)}
+                        </Text>
+                }
+                {!terminar ?
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+                        {cartasBanco.map((item, index) => (
+                            <Image key={index} source={{ uri: index == 0 ? urlDetras : item.image }} style={{ height: 140, width: 100, margin: 2 }} />
+                        ))}
+                    </View>
+                    :
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+                        {cartasBanco.map((item, index) => (
+                            <Image key={index} source={{ uri: item.image }} style={{ height: 140, width: 100, margin: 2 }} />
+                        ))}
+                    </View>
+                }
             </View>
         </View>
     )
