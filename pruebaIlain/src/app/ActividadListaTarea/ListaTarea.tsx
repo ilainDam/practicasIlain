@@ -23,15 +23,17 @@ export default function ListaTarea() {
     //   }
     //   return elemento
     // })
-  
+
     // context.setListaTareas(neoArray);
+    // checkboxTarea(index)
+    // checkboxTarea(index)
 
   }
 
-  function swap(miBool:boolean){
+  function swap(miBool: boolean) {
     if (miBool === true) {
       miBool = false;
-    }else {
+    } else {
       miBool = true;
     }
   }
@@ -48,12 +50,10 @@ export default function ListaTarea() {
           <View key={index}>
             {elemento.activa ?
               <Icon name="checkbox-active" size={24} color="black" onPress={() => {
-                // checkboxTarea(index)
                 context.setListaTareas(checkboxTarea(index))
               }} />
               :
               <Icon name="checkbox-passive" size={24} color="black" onPress={() => {
-                // checkboxTarea(index)
                 context.setListaTareas(checkboxTarea(index))
               }} />
             }
