@@ -19,17 +19,21 @@ export default function CrearTarea() {
     }
   //
     return (
-    <View>
-      <Button title='Alternar activado' onPress={()=>{
+    <View style={{ flex:1,alignItems:'center'}}>
+      <View style={{flexDirection:'row', justifyContent:'flex-end', borderColor:"red",borderWidth:2, borderStyle:'solid', width:"95%"}}>
+      <Button title={activado.toString()} onPress={()=>{
         setActivado(!activado)
       }}/>
-      <TextInput onChangeText={(e)=>{
+      </View>
+      <View style={{flex:1, justifyContent:'flex-end',borderColor:"red",borderWidth:2, borderStyle:'solid', width:"95%"}}>
+      <TextInput multiline={true} style={{textAlignVertical:'top',flex:1}} onChangeText={(e)=>{
         setTexto(e);
       }}/>
       <Button title='Finalizar edicion' onPress={()=>{
         agregarLista()
         navigate("/ActividadListaTarea/ListaTarea")
       }}/>
+      </View>
     </View>
   )
 }

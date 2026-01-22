@@ -38,15 +38,18 @@ export default function ListaTarea() {
   }
   //
   return (
-    <View style={{ flex: 1, borderColor: "red", borderStyle: 'solid', borderWidth: 2, padding: 0, margin: 0 }}>
-      <View style={{ flex: 1, alignItems: 'center', borderColor: "red", borderStyle: 'solid', borderWidth: 2 }}>
+    <View style={{ flex: 1,padding: 0, margin: 0 }}>
+      <View style={{ flex: 1, alignItems: 'center' }}>
         <Text>ListaTarea</Text>
         {context.listaTareas.map((elemento, index) => (
-          <View key={index} style={{ margin: 2, width: '90%', backgroundColor: "#e1e8e4", flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View key={index} style={{ margin: 2, width: '90%', backgroundColor: "#e6e6e6", flexDirection: 'row', justifyContent: 'space-between' }}>
 
             <View style={{alignItems: 'center', marginLeft: 10, flexDirection: 'row' }}>
               {IconoCheckbox(elemento.activa, index)}
-              <Text style={{ flexShrink: 1, flexWrap: "wrap" }}>{elemento.texto}</Text>
+              {context.listaTareas[index].activa ? 
+              <Text style={{ flexShrink: 1, flexWrap: "wrap", textDecorationLine:'line-through'}}>{elemento.texto}</Text> 
+              : 
+              <Text style={{ flexShrink: 1, flexWrap: "wrap"}}>{elemento.texto}</Text>}
             </View>
 
             <View style={{alignItems: 'center', marginRight: 10, flexDirection: "row" }}>
@@ -56,7 +59,7 @@ export default function ListaTarea() {
           </View>
         ))}
       </View>
-      <View style={{ flex: 1, justifyContent: "flex-end", borderColor: "red", borderStyle: 'solid', borderWidth: 2 }}>
+      <View style={{ flex: 1, justifyContent: "flex-end"}}>
         <Button title='+' onPress={() => {
           navigate("/ActividadListaTarea/CrearTarea")
         }} />
