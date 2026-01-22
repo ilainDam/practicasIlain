@@ -1,7 +1,7 @@
 import { Tarea, useAppContext } from '@/src/context/AppContextProvider';
 import { navigate } from 'expo-router/build/global-state/routing';
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, StyleSheet, TextInput, View } from 'react-native';
 
 export default function CrearTarea() {
   //
@@ -20,7 +20,6 @@ export default function CrearTarea() {
   //
     return (
     <View>
-      <Text>CrearTarea</Text>
       <Button title='Alternar activado' onPress={()=>{
         setActivado(!activado)
       }}/>
