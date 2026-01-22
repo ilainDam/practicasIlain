@@ -10,6 +10,7 @@ export default function AppConfigLayout() {
       <SafeAreaView  style={{flex:1}}>
         <Stack
             screenOptions={{
+                headerTitleAlign:'center',
                 headerStyle: {
                     backgroundColor : "#3461eb",
                 }
