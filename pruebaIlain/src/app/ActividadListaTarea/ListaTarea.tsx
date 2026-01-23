@@ -3,28 +3,33 @@ import { router } from 'expo-router';
 import { navigate } from 'expo-router/build/global-state/routing';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { useAppContext } from '../../context/AppContextProvider';
+import { Tarea, useAppContext } from '../../context/AppContextProvider';
 
 export default function ListaTarea() {
+  let iconoCheckBoxActivo = "checkbox-active";
+  let iconoCheckBoxPasivo = "checkbox-passive";
+
   //
   const context = useAppContext()
   let azul = "#3483eb"
   //
-  function checkboxTarea(index: number) {
-    let lista = [...context.listaTareas]
-    let tarea = context.listaTareas[index]
-    tarea.activa = !tarea.activa
-    context.listaTareas[index] = tarea
-    return lista
+  function cambiarEstadoTareaActivoNoActivo(tareaAModificar : Tarea) {
+    let listaNueva = context.listaTareas.filter(t=>t.id !=tareaAModificar.id );
+    tareaAModificar.activa = !tareaAModificar.activa
+    listaNueva.push(tareaAModificar);
+    context.setListaTareas(listaNueva);
   }
 
-  function IconoCheckbox(activo: boolean, index: number) {
-    let checkbox = activo ? "checkbox-active" : "checkbox-passive"
+  function IconoCheckbox(elementoId : number) {
+    let tareaEncontrada = context.listaTareas.find(t => t.id == elementoId);
+    if( tareaEncontrada){
+      let checkbox = tareaEncontrada.activa ? iconoCheckBoxActivo : iconoCheckBoxPasivo;
     return (
       <View style={{ marginRight: 10 }}>
-        <Icon name={checkbox as any} size={24} color={azul} onPress={() => { context.setListaTareas(checkboxTarea(index)) }} />
+        <Icon name={checkbox as any} size={24} color={azul} onPress={()=>cambiarEstadoTareaActivoNoActivo(tareaEncontrada) } />
       </View>
-    )
+    )      
+    }else return (<View></View>);
   }
   function borrarTarea(index: number) {
     return (
@@ -51,11 +56,11 @@ export default function ListaTarea() {
       <View style={{ flex: 1, alignItems: 'center' }}>
         <Text>ListaTarea</Text>
         {context.listaTareas.map((elemento, index) => (
-          <View key={index} style={{ margin: 2, width: '90%', backgroundColor: "#e6e6e6", flexDirection: 'row', alignItems: 'center' }}>
+          <View key={elemento.id} style={{ margin: 2, width: '90%', backgroundColor: "#e6e6e6", flexDirection: 'row', alignItems: 'center' }}>
 
             <View style={{ flex:1 ,   alignItems: 'center', marginLeft: 10, flexDirection: 'row' }}>
-              {IconoCheckbox(elemento.activa, index)}
-              {context.listaTareas[index].activa ? 
+              {IconoCheckbox(elemento.id)}
+              {elemento.activa ? 
               <Text style={{ flexShrink: 1, flexWrap: "wrap", textDecorationLine:'line-through'}}>{elemento.texto}</Text> 
               : 
               <Text style={{ flexShrink: 1, flexWrap: "wrap"}}>{elemento.texto}</Text>}

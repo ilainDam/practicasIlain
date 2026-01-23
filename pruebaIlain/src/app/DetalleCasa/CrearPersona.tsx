@@ -1,7 +1,7 @@
 import { navigate } from 'expo-router/build/global-state/routing';
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { Persona, useAppContext } from '../context/AppContextProvider';
+import { Persona, useAppContext } from '../../context/AppContextProvider';
 
 export default function CrearPersona() {
     let context = useAppContext();
@@ -30,7 +30,7 @@ export default function CrearPersona() {
             <TextInput placeholder='Nombre' onChangeText={(e) => setEdad(parseInt(e))}></TextInput>
             <Button title='Enviar' onPress={()=>{
                 guardarUsuario();
-                navigate("/DetalleCasas");
+                navigate("/DetalleCasa/DetalleCasas");
             }}/>
         </View>
     )

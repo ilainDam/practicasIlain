@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { useAppContext } from '../context/AppContextProvider';
+import { useAppContext } from '../../context/AppContextProvider';
 
 type Props = {}
 //const {idCasa} = useLocalSearchParams()
