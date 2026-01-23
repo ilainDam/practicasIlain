@@ -9,18 +9,44 @@ const HistorialUbicaciones = () => {
 
 
     async function guardarDatos() {
-        console.log(JSON.stringify(position))
-        const jsonValue = JSON.stringify(position);
-        await AsyncStorage.setItem('my-key', jsonValue);
+        const strListaPosciones = await AsyncStorage.getItem('lista-posiciones'); 
+        let listaPosiciones = [];
+        if( strListaPosciones){
+             listaPosiciones= JSON.parse(strListaPosciones);
+        }
+
+        listaPosiciones.push(position);
+
+        
+        const strListaPosciones2= JSON.stringify(listaPosiciones);
+        await AsyncStorage.setItem('lista-posiciones', strListaPosciones2);
+
     };
 
+    /*
+
+            
+            strlLista = papafrita.read()
+            let lista = JSON.parse(strLista);
+            lista.push(posicion)
+
+            papafrita.write(JSON.stringfy(lista))
+
+    */
+
     async function recuperarInformacion() {
-        const jsonValue = await AsyncStorage.getItem('my-key'); //se recupera de storage
-        const data = jsonValue != null ? JSON.parse(jsonValue) : null;
-        console.log(data)
+        const strListaPosciones = await AsyncStorage.getItem('lista-posiciones'); 
+        let listaPosiciones = [];
+        if( strListaPosciones){
+             listaPosiciones= JSON.parse(strListaPosciones);
+        }
+     
         return (
             <View>
-                <Text>{data}</Text>
+                {
+                    listaPosiciones.map( (p: any)=> {<Text>{JSON.stringify(p)}</Text>})
+                }
+                
             </View>
         )
     }
