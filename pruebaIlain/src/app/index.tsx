@@ -1,14 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
-import HistorialUbicaciones from './Actividad34/HistorialUbicaciones';
+import ListaTarea from './ActividadListaTarea/ListaTarea';
 
 
 
 const index = () => {
   return (
     <View style={{ flex: 1 }}>
-      {/* {ListaTarea()} */}
-      {HistorialUbicaciones()}
+      {ListaTarea()}
+      {/*HistorialUbicaciones()*/}
       {/* {Gps()} */}
     </View>
   )
