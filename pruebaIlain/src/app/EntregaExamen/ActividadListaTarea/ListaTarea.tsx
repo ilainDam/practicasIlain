@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import { navigate } from 'expo-router/build/global-state/routing';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { useAppContext } from '../../context/AppContextProvider';
+import { useAppContext } from '../../../context/AppContextProvider';
 
 export default function ListaTarea() {
   //
@@ -43,7 +43,7 @@ export default function ListaTarea() {
     return(
       <Icon name="thermometer-alt" size={24} color={azul} onPress={()=>{
         router.push({
-          pathname:"/ActividadListaTarea/CrearTarea",
+          pathname:"/ActividadListaTarea/CrearTarea" as any,
           params:{idParametros:index}
         })
       }}/>
@@ -75,7 +75,7 @@ export default function ListaTarea() {
       </View>
       <View style={{ flex: 1, justifyContent: "flex-end"}}>
         <Button title='+' onPress={() => {
-          navigate("/ActividadListaTarea/CrearTarea")
+          navigate("./ActividadListaTarea/CrearTarea")
         }} />
       </View>
     </View>
