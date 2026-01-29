@@ -43,7 +43,7 @@ export default function ListaTarea() {
     return(
       <Icon name="thermometer-alt" size={24} color={azul} onPress={()=>{
         router.push({
-          pathname:"/ActividadListaTarea/CrearTarea" as any,
+          pathname:"/EntregaExamen/ActividadListaTarea/CrearTarea",
           params:{idParametros:index}
         })
       }}/>
@@ -55,7 +55,7 @@ export default function ListaTarea() {
       <View style={{ flex: 1, alignItems: 'center' }}>
         <Text>ListaTarea</Text>
         {context.listaTareas.map((elemento, index) => (
-          <View key={elemento.id} style={{ margin: 2, width: '90%', backgroundColor: "#e6e6e6", flexDirection: 'row', alignItems: 'center' }}>
+          <View key={elemento.id+Math.random()} style={{ margin: 2, width: '90%', backgroundColor: "#e6e6e6", flexDirection: 'row', alignItems: 'center' }}>
 
             <View style={{ flex:1 ,   alignItems: 'center', marginLeft: 10, flexDirection: 'row' }}>
               {IconoCheckbox(elemento.id)}
@@ -75,7 +75,7 @@ export default function ListaTarea() {
       </View>
       <View style={{ flex: 1, justifyContent: "flex-end"}}>
         <Button title='+' onPress={() => {
-          navigate("./ActividadListaTarea/CrearTarea")
+          navigate("/EntregaExamen/ActividadListaTarea/CrearTarea")
         }} />
       </View>
     </View>

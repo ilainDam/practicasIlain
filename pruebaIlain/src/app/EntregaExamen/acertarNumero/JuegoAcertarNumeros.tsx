@@ -1,6 +1,6 @@
-import { View, Text, Button, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
-const Index = () => {
+import React, { useEffect, useState } from 'react';
+import { Alert, Button, StyleSheet, Text, View } from 'react-native';
+const JuegoAcertarNumeros = () => {
     //
     let rangoNumeros = [
         [0, 9],
@@ -24,28 +24,28 @@ const Index = () => {
         setNumeroAleatorio(Math.trunc(Math.random() * 100))
     }, [resetear])
     //
-    function generarNumeroRango(){
-        if(rangoSeleccionado){
+    function generarNumeroRango() {
+        if (rangoSeleccionado) {
             const botones = [];
             for (let index = rangoSeleccionado[0]; index <= rangoSeleccionado[1]; index++) {
-                botones.push(<Button key={index} title={index+""} onPress={()=>adivinarNumero(index)}/>);
+                botones.push(<Button key={index} title={index + ""} onPress={() => adivinarNumero(index)} />);
             }
             return botones;
         }
     }
-    function adivinarNumero(numero : number){
-        if(numeroAleatorio){
-            if(numero === numeroAleatorio){
-            alert("Ganaste Wuuuu")
-            setResetear(resetear+1)
-        } else {
-            if(numero>numeroAleatorio){
-                alert("El numero es menor")
+    function adivinarNumero(numero: number) {
+        if (numeroAleatorio) {
+            if (numero === numeroAleatorio) {
+                Alert.alert("Ganaste Wuuuu")
+                setResetear(resetear + 1)
             } else {
-                alert("El numero es mayor")
+                if (numero > numeroAleatorio) {
+                    Alert.alert("El numero es menor")
+                } else {
+                    Alert.alert("El numero es mayor")
+                }
             }
             setRangoSeleccionado(null)
-        }
         }
     }
     return (
@@ -74,11 +74,11 @@ const Index = () => {
 }
 
 const estilos = StyleSheet.create({
-    texto:{
-        fontWeight: 'bold', 
-        textAlign: 'center' 
-    } 
+    texto: {
+        fontWeight: 'bold',
+        textAlign: 'center'
+    }
 })
 
 
-export default Index
+export default JuegoAcertarNumeros
