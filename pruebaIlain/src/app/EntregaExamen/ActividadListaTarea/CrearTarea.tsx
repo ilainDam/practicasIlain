@@ -65,7 +65,7 @@ export default function CrearTarea() {
           }else{
             agregarLista()
           }
-          navigate("/ActividadListaTarea/ListaTarea")
+          navigate("/EntregaExamen/ActividadListaTarea/ListaTarea")
         }} />
       </View>
 
