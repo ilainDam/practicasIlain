@@ -4,7 +4,7 @@ import { getUsers } from "./databaseFiller";
 const apiKey = process.env.APIKEY;
 async function main() {
     console.log("--------------------------Servidor_ON------------------------------");
-    await getUsers()
+    await getUsers(apiKey as string)
 }
 main();
 
